@@ -65,7 +65,7 @@ function renderCountry(country) {
   const markup = `
     <div>
         <div class="country-wrapper">
-            <img src="${flags.svg}" alt="national flag" width="120">
+            <img class="country-img" src="${flags.svg}" alt="national flag" width="120">
             <h2 class="country-name">${name.official}</h2>
         </div>
         <p><span class="country-text">Capital:</span> ${capital}</p>
