@@ -7,6 +7,7 @@ const DEBOUNCE_DELAY = 300;
 
 const search = document.querySelector('#search-box');
 const list = document.querySelector('.country-list');
+const countryInfo = document.querySelector('.country-info');
 
 search.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
 
@@ -15,6 +16,7 @@ function onSearch(e) {
 
   if (!country) {
     list.innerHTML = '';
+    countryInfo.innerHTML = '';
     return;
   }
 
@@ -27,10 +29,12 @@ function onSearch(e) {
       }
 
       if (data.length >= 2 && data.length <= 10) {
+        countryInfo.innerHTML = '';
         renderCountries(data);
       }
 
       if (data.length === 1) {
+        list.innerHTML = '';
         renderCountry(data);
       }
     })
@@ -44,7 +48,7 @@ function renderCountries(countries) {
     .map(
       ({ name, flags }) => `
     <li>
-        <img src="${flags.svg}" alt="national flag" width="30">
+        <img src="${flags.svg}" alt="national flag" width="50">
         <h2>${name.official}</h2>
     </li>
     `
@@ -59,14 +63,16 @@ function renderCountry(country) {
   const languagesArr = Object.values(languages);
 
   const markup = `
-    <li>
-        <img src="${flags.svg}" alt="national flag" width="30">
-        <h2>${name.official}</h2>
-        <h3>Capital: ${capital}</h3>
-        <p>Population: ${population}</p>
-        <p>Languages: ${languagesArr}</p>
-    </li>
+    <div>
+        <div class="country-wrapper">
+            <img src="${flags.svg}" alt="national flag" width="120">
+            <h2 class="country-name">${name.official}</h2>
+        </div>
+        <p><span class="country-text">Capital:</span> ${capital}</p>
+        <p><span class="country-text">Population:</span> ${population}</p>
+        <p><span class="country-text">Languages:</span> ${languagesArr}</p>
+    </div>
     `;
 
-  list.innerHTML = markup;
+  countryInfo.innerHTML = markup;
 }
