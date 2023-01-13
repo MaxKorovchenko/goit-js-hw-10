@@ -6,8 +6,8 @@ import Notiflix from 'notiflix';
 const DEBOUNCE_DELAY = 300;
 
 const search = document.querySelector('#search-box');
-const list = document.querySelector('.country-list');
-const countryInfo = document.querySelector('.country-info');
+export const list = document.querySelector('.country-list');
+export const countryInfo = document.querySelector('.country-info');
 
 search.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
 
@@ -23,7 +23,9 @@ function onSearch(e) {
   fetchCountries(country)
     .then(data => {
       if (data.length > 10) {
-        return Notiflix.Notify.info(
+        list.innerHTML = '';
+        countryInfo.innerHTML = '';
+        Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
       }
